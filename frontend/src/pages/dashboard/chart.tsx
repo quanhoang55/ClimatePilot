@@ -6,8 +6,8 @@ import * as React from "react";
 export const description = "A step area chart";
 
 interface DataRow {
-    month: string;
-    data: number;
+  month: string;
+  data: number;
 }
 
 const WIDTH = 720;
@@ -29,7 +29,7 @@ const stepPath = (chartData: DataRow[]) => {
   return points
     .map((p, index) => {
       if (index === 0) return `M ${p.x} ${p.y}`;
-    //   const prev = points[index - 1];
+      //   const prev = points[index - 1];
       return `H ${p.x} V ${p.y}`;
     })
     .join(" ");
@@ -41,7 +41,7 @@ const areaPath = (chartData: DataRow[]) => {
   return `${stepPath(chartData)} L ${points[points.length - 1].x} ${baseY} H ${points[0].x} Z`;
 }
 
-const ChartAreaStep = ({chartData}: {chartData :DataRow[]}) => {
+const ChartAreaStep = ({ chartData }: { chartData: DataRow[] }) => {
   const [activeIndex, setActiveIndex] = React.useState(1);
   const active = chartData[activeIndex];
   const activePoint = point(activeIndex, active.data, chartData);
@@ -52,11 +52,11 @@ const ChartAreaStep = ({chartData}: {chartData :DataRow[]}) => {
     <div>
       <div>
         <div>
-          <p className="bento-card__number" style={{color: "var(--muted)"}}>Desktop</p>
-          <h3 className="bento-card__title" style={{color: "var(--ink)"}}>Step Area Chart</h3>
+          <p className="bento-card__number" style={{ color: "var(--muted)" }}>Desktop</p>
+          <h3 className="bento-card__title" style={{ color: "var(--ink)" }}>Step Area Chart</h3>
         </div>
         <div>
-          <span className="bento-card__number" style={{color: "var(--muted)"}}>{active.month}</span>
+          <span className="bento-card__number" style={{ color: "var(--muted)" }}>{active.month}</span>
         </div>
       </div>
 
@@ -70,7 +70,7 @@ const ChartAreaStep = ({chartData}: {chartData :DataRow[]}) => {
         <rect x={PADDING.left} y={PADDING.top} width={WIDTH - PADDING.left - PADDING.right} height={HEIGHT - PADDING.top - PADDING.bottom} fill="url(#pixel-grid)" />
 
         {yTicks.map((tick) => {
-          const y = point(0, tick,chartData).y;
+          const y = point(0, tick, chartData).y;
           return (
             <g key={tick} className="text-muted-foreground">
               <line x1={PADDING.left} x2={WIDTH - PADDING.right} y1={y} y2={y} stroke="var(--muted)" strokeOpacity="0.32" strokeDasharray="8 8" />
@@ -84,7 +84,7 @@ const ChartAreaStep = ({chartData}: {chartData :DataRow[]}) => {
 
         {chartData.map((item, index) => {
           const p = point(index, item.data, chartData);
-        //   const isActive = index === activeIndex;
+          //   const isActive = index === activeIndex;
           return (
             <g key={item.month} onMouseEnter={() => setActiveIndex(index)} onFocus={() => setActiveIndex(index)} tabIndex={0} className="cursor-pointer outline-none">
               <line x1={p.x} x2={p.x} y1={PADDING.top} y2={HEIGHT - PADDING.bottom} stroke="transparent" strokeWidth="46" />
@@ -107,4 +107,4 @@ const ChartAreaStep = ({chartData}: {chartData :DataRow[]}) => {
   );
 }
 
-export {ChartAreaStep}
+export { ChartAreaStep }
